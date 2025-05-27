@@ -1,29 +1,30 @@
 def solar_estimation(area_m2, irradiance=5.5, panel_eff=0.18, tariff=7.0):
     """
-    Calculate solar output and ROI from rooftop area.
+    Estimate solar energy output, system cost, and ROI for a given rooftop area.
 
-    Args:
+    Parameters:
         area_m2 (float): Usable rooftop area in square meters.
-        irradiance (float): kWh/m²/day (default = 5.5 for India)
-        panel_eff (float): Efficiency of solar panels (18% = 0.18)
-        tariff (float): ₹/kWh for local electricity cost
+        irradiance (float): Average daily solar irradiance (kWh/m²/day).
+        panel_eff (float): Efficiency of the solar panels (as a decimal).
+        tariff (float): Electricity tariff (₹ per kWh).
 
     Returns:
-        dict with kWh/year, cost, savings/year, ROI
+        dict: Contains estimated system size, annual energy output, cost, savings, and payback period.
     """
-    # Energy output
+
+    # Estimate annual energy output (kWh/year)
     kwh_per_year = area_m2 * irradiance * 365 * panel_eff
 
-    # System size in kW (1kW ≈ 6.5 m² of panels)
+    # Calculate system size in kW (Assuming ~6.5 m² per kW)
     system_size_kw = area_m2 / 6.5
 
-    # Approx cost (₹40,000 per kW)
+    # Estimate system cost (₹40,000 per kW is a common average)
     system_cost = system_size_kw * 40000
 
-    # Yearly savings
+    # Estimate yearly savings
     annual_savings = kwh_per_year * tariff
 
-    # Payback period
+    # Calculate payback period (years), avoiding division by zero
     roi_years = system_cost / annual_savings if annual_savings > 0 else float('inf')
 
     return {

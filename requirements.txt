@@ -4,3 +4,6 @@ numpy
 matplotlib
 streamlit
 openai
+python-dotenv
+requests
+Pillow

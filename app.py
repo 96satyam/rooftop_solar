@@ -9,8 +9,6 @@ from utils.area_calc import convert_pixels_to_m2
 from utils.solar_calc import solar_estimation
 from utils.prompts import generate_prompt
 from utils.llm_agent import get_llm_response
-
-#  page settings
 st.set_page_config(page_title="☀️ Solar Rooftop Analyzer", layout="centered")
 st.title("☀️ AI-Powered Solar Rooftop Analyzer")
 st.markdown("""
@@ -31,6 +29,7 @@ st.caption("Accepts JPG, JPEG, PNG formats. Prefer high-resolution satellite vie
 uploaded_image = st.file_uploader("", type=["jpg", "jpeg", "png"])
 
 # Process uploaded image
+
 if uploaded_image:
     img_path = "temp_image.jpg"
     with open(img_path, "wb") as f:
@@ -40,7 +39,10 @@ if uploaded_image:
 
     st.markdown("---")
     st.subheader("🧠 Rooftop Detection & Analysis")
+
+    # ✅ FIXED: call rooftop detector here, not LLM
     mask, pixel_area = detect_rooftop_area(img_path)
+
 
     if pixel_area > 0:
         area_m2 = convert_pixels_to_m2(pixel_area, scale)

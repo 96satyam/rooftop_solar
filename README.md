@@ -1,12 +1,21 @@
+---
+title: Solar Rooftop Analyzer
+emoji: ☀️
+colorFrom: yellow
+colorTo: green
+sdk: docker
+pinned: false
+---
+
 # ☀️ AI-Powered Solar Rooftop Analyzer
 
 This is a Streamlit-based web application that uses AI to detect rooftops from satellite images and estimate their solar potential, installation feasibility, and ROI — designed specifically for homeowners and solar professionals.
 
->  Built as part of the **Wattmonk Technologies Internship Assessment**
+> 🔧 Built as part of the **Wattmonk Technologies Internship Assessment**
 
 ---
 
-##  What It Does
+## 🚀 What It Does
 - Detects rooftop areas using YOLOv8 segmentation model
 - Estimates solar panel system size, cost, and annual savings
 - Calculates ROI and payback period
@@ -14,47 +23,44 @@ This is a Streamlit-based web application that uses AI to detect rooftops from s
 
 ---
 
-##  Live Demo (Optional for Hugging Face Spaces)
-
-Try it live on [Hugging Face Spaces](https://huggingface.co/spaces/your-username/solar-rooftop-analyzer) *(link to be added once deployed)*
+## 🌐 Live Demo (Hugging Face Spaces)
+Try it live on [Hugging Face Spaces](https://huggingface.co/spaces/96satyam/solar-rooftop-analyzer) *(replace with your deployed URL)*
 
 ---
 
-##  How It Works
+## 🧠 How It Works
 
-###  1. **Rooftop Detection (Vision AI)**
-We use [Ultralytics YOLOv8-nano segmentation](https://docs.ultralytics.com) model (`yolov8n-seg.pt`) to simulate rooftop detection. 
+### 1. 🛰️ Rooftop Detection (Vision AI)
+We use [Ultralytics YOLOv8-nano segmentation](https://docs.ultralytics.com) model (`yolov8n-seg.pt`) to simulate rooftop detection.
 - In early development, we use a **simulated mask** covering the central 70% of the image.
-- This approach helps keep the model lightweight and avoids the need for labeled satellite image datasets.
+- This helps keep the model lightweight and testable without a large rooftop-labeled dataset.
 
 > 🔄 Future upgrade: fine-tuned YOLOv8 for real rooftop segmentation.
 
-###  2. **Solar System Estimation**
-Using detected rooftop area (in m²), we calculate:
-- Total system size (kW)
-- Annual energy generation (kWh)
-- Total installation cost
-- Annual savings and payback period
+### 2. ☀️ Solar System Estimation
+Using the detected rooftop area:
+- System size (kW)
+- Annual generation (kWh)
+- Cost, savings, and payback period
 
-This is handled via simple heuristics in `solar_calc.py` — fully customizable per region or client.
+Implemented in `utils/solar_calc.py` with fully adjustable heuristics.
 
-###  3. **LLM Integration for Expert Advice**
-We connect to an LLM to generate:
-- Recommended panel type
-- Optimal tilt/orientation
-- Government subsidies
-- Value-added installation tips
+### 3. 🧠 LLM Integration for Expert Summary
+We connect to an LLM to provide:
+- Panel type & count
+- Tilt/orientation
+- Subsidy info
+- Pro installation advice
 
-####  LLM Options
-- **OpenAI GPT-3.5**: Recommended if you have credits (default behavior)
-- **OpenRouter API**: Free models like `deepseek-chat:free` supported, but limited by credit/quota
+#### LLM API Options:
+- ✅ **OpenAI GPT-3.5** (preferred — full access with API key)
+- ⚠️ **OpenRouter** (`deepseek-chat:free`) — supported, but free tier has strict limits
 
->  OpenRouter support is built-in. Due to quota limits, we recommend OpenAI for production use.
+> OpenRouter integration is built-in to demonstrate flexibility, even though quota limits may restrict real-time usage.
 
 ---
 
-##  Setup Instructions
-
+## 🛠️ Setup Instructions
 ```bash
 git clone https://github.com/96satyam/solar_ai_assistant.git
 cd solar_ai_assistant
@@ -63,16 +69,16 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Download YOLO weights:
+Download YOLO model weights:
 ```bash
 wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n-seg.pt -P models/
 ```
 
-Add `.env` file:
+Add your API keys:
 ```env
-OPENAI_API_KEY=sk-xxx
+OPENAI_API_KEY=sk-xxxxxx
 # or
-OPENROUTER_API_KEY=sk-or-xxx
+OPENROUTER_API_KEY=sk-or-xxxxxx
 ```
 
 Run the app:
@@ -82,13 +88,13 @@ streamlit run app.py
 
 ---
 
-##  Example Output
-| Component | Sample |
-|----------|--------|
-| Rooftop Area | 55,216 m² |
-| System Size | 8,494.77 kW |
-| ROI | 2.4 years |
-| LLM Summary | ✅ Monocrystalline panels<br>✅ 27,600 panels<br>✅ South-facing @ 28° tilt |
+## 🖼️ Example Output
+| Component       | Sample Output              |
+|----------------|----------------------------|
+| Rooftop Area   | 55,216 m²                  |
+| System Size    | 8,494.77 kW                |
+| ROI            | 2.4 years                  |
+| LLM Summary    | ✅ Monocrystalline panels <br> ✅ 27,600 panels <br> ✅ South-facing @ 28° tilt |
 
 ---
 
@@ -96,38 +102,41 @@ streamlit run app.py
 ```
 solar_ai_assistant/
 ├── app.py                  # Streamlit app
-├── models/                # YOLO logic
-├── utils/                 # Area, ROI, prompt, LLM
-├── assets/sample_images/  # Test images
-├── requirements.txt
-├── setup_instructions.md
-└── README.md
+├── Dockerfile              # Docker config for Hugging Face deployment
+├── models/                # YOLO weights + detection logic
+├── utils/                 # Calculations and LLM prompts
+├── assets/sample_images/  # Example input images
+├── requirements.txt       # Dependencies
+├── setup_instructions.md  # Local setup help
+└── README.md              # You are here
 ```
 
 ---
 
-##  Deployment on Hugging Face Spaces
-To deploy on Hugging Face:
-1. Create a new Space (Python + Streamlit)
-2. Upload all project files
-3. Add `yolov8n-seg.pt` inside `models/`
-4. Set environment variables under "Secrets"
+## ☁️ Deployment on Hugging Face Spaces (Docker)
+1. Create a new Space on Hugging Face (choose `Docker` SDK)
+2. Upload all files including the `Dockerfile`
+3. Set API keys in **Settings → Secrets**
+   - `OPENAI_API_KEY` or `OPENROUTER_API_KEY`
+4. Hugging Face builds & hosts your app at:
+```
+https://<username>-<space-name>.hf.space
+```
 
 ---
 
 ## 🔮 Future Enhancements
-- 🔍 Real rooftop detection using fine-tuned YOLO
-- 🌦️ Real irradiance data via Meteo or Google Solar API
-- 🗺️ Auto-location inference using coordinates
-- 📦 Deploy as a cloud API (FastAPI backend)
+- 🧠 Real rooftop detection with fine-tuned YOLOv8
+- 🌦️ Real-time irradiance via Meteo/Google Solar API
+- 📍 Auto-location & time-zone for regional estimates
+- ⚙️ Expose API endpoint (FastAPI backend)
 
 ---
 
 ## 👨‍💻 Author
 **Satyam Tiwari**  
 AI & Data Science Final Year @ VIPS-TC  
-🔗 [LinkedIn](https://www.linkedin.com/in/satyam9695/)  | 📫 [Email](shivt843@gmail.com)
+🔗 [LinkedIn](https://www.linkedin.com/in/satyam9695/) · 📧 [Email](mailto:shivt843@gmail.com)
 
 ---
-
 Built with ❤️ for the clean energy future.

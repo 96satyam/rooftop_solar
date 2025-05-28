@@ -23,8 +23,6 @@ This is a Streamlit-based web application that uses AI to detect rooftops from s
 
 ---
 
-## 🌐 Live Demo (Hugging Face Spaces)
-Try it live on [Hugging Face Spaces](https://huggingface.co/spaces/96satyam/solar-rooftop-analyzer) *(replace with your deployed URL)*
 
 ---
 
@@ -109,18 +107,6 @@ solar_ai_assistant/
 ├── requirements.txt       # Dependencies
 ├── setup_instructions.md  # Local setup help
 └── README.md              # You are here
-```
-
----
-
-## ☁️ Deployment on Hugging Face Spaces (Docker)
-1. Create a new Space on Hugging Face (choose `Docker` SDK)
-2. Upload all files including the `Dockerfile`
-3. Set API keys in **Settings → Secrets**
-   - `OPENAI_API_KEY` or `OPENROUTER_API_KEY`
-4. Hugging Face builds & hosts your app at:
-```
-https://<username>-<space-name>.hf.space
 ```
 
 ---
